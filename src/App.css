@@ -1,0 +1,127 @@
+/* App.css */
+
+body {
+  font-family: 'Garamond', serif; /* A font that gives a classic feel */
+  background-color: #1a1a1a; /* Dark background */
+  color: #f4f4f4; /* Light text color for contrast */
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #2c2c2c; /* Darker container background */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+  border: 1px solid #444; /* Subtle border */
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #e0e0e0; /* Light grey color for headings */
+  font-size: 2.5em; /* Larger font size for prominence */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+nav {
+  display: flex;
+  justify-content: center; /* Center the navigation items */
+  gap: 20px; /* Space between navigation items */
+  margin-bottom: 20px; /* Space below the navigation */
+}
+
+nav a {
+  text-decoration: none;
+  color: #d1cfcf; /* Light color for links */
+  font-weight: bold;
+  font-size: 1.2em; /* Slightly larger font for links */
+  transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+nav a:hover {
+  color: #ff6347; /* Change to a reddish color on hover */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #444; /* Darker border */
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #3b3b3b; /* Dark input background */
+  color: #f4f4f4; /* Light text color for inputs */
+}
+
+input:focus {
+  border-color: #ff6347; /* Change border color on focus */
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 99, 71, 0.5); /* Shadow effect */
+}
+
+button {
+  padding: 10px;
+  background-color: #444; /* Dark button background */
+  color: #f4f4f4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+  background-color: #ff6347; /* Reddish color on hover */
+}
+
+h3 {
+  margin-top: 20px;
+  color: #e0e0e0; /* Light grey for subheadings */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #3b3b3b; /* Dark background for list items */
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li button {
+  background-color: #dc3545; /* Red background for remove buttons */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+li button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+.edit-button {
+  background-color: #28a745; /* Green for edit buttons */
+}
+
+.edit-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
