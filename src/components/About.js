@@ -1,12 +1,11 @@
-// src/components/About.js
 import React from 'react';
 
 const About = () => {
   return (
-    <div>
+    <section>
       <h2>About Us</h2>
-      <p>Currently under construction waiting for week 5</p>
-    </div>
+      <p>We are currently building this page. Please check back in Week 5.</p> {/* Updated placeholder text */}
+    </section>
   );
 };
 

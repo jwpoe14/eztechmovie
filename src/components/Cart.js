@@ -1,12 +1,11 @@
-// src/components/Cart.js
 import React from 'react';
 
 const Cart = () => {
   return (
-    <div>
+    <section>
       <h2>Cart</h2>
-      <p>Currently under construction waiting for Week 4</p>
-    </div>
+      <p>We are working on this feature. Please check back in Week 4.</p> {/* Updated placeholder text */}
+    </section>
   );
 };
 
