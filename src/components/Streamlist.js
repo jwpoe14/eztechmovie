@@ -1,11 +1,18 @@
+// src/components/Streamlist.js
+
 import React, { useEffect, useState } from 'react';
 
-const Streamlist = () => {
+const iconPath = `${process.env.PUBLIC_URL}/icons/download.png`; // Path to the download icon
+
+const Streamlist = ({ movieList, updateMovieList, addItemToCart }) => {
   const [movieName, setMovieName] = useState('');
   const [price, setPrice] = useState(''); // State for price input
-  const [movieList, setMovieList] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [errorMessage, setErrorMessage] = useState(''); // Error message state
+
+  const handleDownloadClick = () => {
+    alert("You have downloaded the EZTechMovie Application."); // Alert for download action
+  };
 
   useEffect(() => {
     // Check if localStorage is available
@@ -23,8 +30,19 @@ const Streamlist = () => {
     if (isLocalStorageAvailable()) {
       try {
         const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
-        setMovieList(storedMovies);
-        console.log('Loaded movies from local storage:', storedMovies); // Log loaded movies
+        
+        // Parse price to ensure it's a number
+        const parsedMovies = storedMovies.map(movie => ({
+          ...movie,
+          price: parseFloat(movie.price), // Ensure price is a number
+        }));
+
+        // Only update the movie list if it has changed
+        if (JSON.stringify(parsedMovies) !== JSON.stringify(movieList)) {
+          updateMovieList(parsedMovies); // Update parent state with loaded movies
+        }
+
+        console.log('Loaded movies from local storage:', parsedMovies); // Log loaded movies
         setErrorMessage(''); // Clear any previous error messages
       } catch (error) {
         setErrorMessage('Failed to load movies from local storage. Please try again later.'); // Updated error message
@@ -33,7 +51,7 @@ const Streamlist = () => {
     } else {
       setErrorMessage('Local storage is not available. Please check your browser settings.'); // Handle local storage unavailability
     }
-  }, []);
+  }, [updateMovieList, movieList]); // Add movieList to the dependency array
 
   const handleMovieNameChange = (e) => {
     setMovieName(e.target.value);
@@ -53,35 +71,37 @@ const Streamlist = () => {
       setErrorMessage('Movie name is required.'); // Ensure movie name is provided
       return;
     }
-    if (isNaN(priceValue) || priceValue <= 0) { // Change < 0 to <= 0 to ensure price is positive
+    if (isNaN(priceValue) || priceValue <= 0) {
       setErrorMessage('Price must be a positive number.'); // Updated error message for price validation
       return;
     }
 
-    const newMovie = { name: movieName, price: priceValue.toFixed(2), completed: false }; // Format price to 2 decimal places
+    const newMovie = { name: movieName, price: priceValue, completed: false }; // Store price as a number
+
     if (editIndex !== null) {
       // Edit existing movie
       const updatedList = movieList.map((movie, index) =>
-        index === editIndex ? { ...newMovie, completed: movie.completed } : movie
+        index === editIndex ? newMovie : movie
       );
-      setMovieList(updatedList);
+      updateMovieList(updatedList); // Update movie list in parent state
       localStorage.setItem('movies', JSON.stringify(updatedList)); // Save to local storage
       console.log('Updated movie list:', updatedList); // Log updated movie list
       setEditIndex(null); // Reset edit index
     } else {
       // Add new movie
       const updatedList = [...movieList, newMovie]; // Add the movie data to the list
-      setMovieList(updatedList);
+      updateMovieList(updatedList); // Update movie list in parent state
       localStorage.setItem('movies', JSON.stringify(updatedList)); // Save to local storage
       console.log('Added new movie:', newMovie); // Log the new movie added
     }
+
     setMovieName(''); // Clear the movie name input
     setPrice(''); // Clear the price input
   };
 
   const handleDelete = (index) => {
     const newList = movieList.filter((_, i) => i !== index); // Create a new list excluding the item at the specified index
-    setMovieList(newList); // Update the state with the new list
+    updateMovieList(newList); // Update the state in parent
     localStorage.setItem('movies', JSON.stringify(newList)); // Save to local storage
     console.log('Deleted movie at index:', index, 'Updated movie list:', newList); // Log the updated list after deletion
   };
@@ -97,7 +117,7 @@ const Streamlist = () => {
     const updatedList = movieList.map((movie, i) =>
       i === index ? { ...movie, completed: !movie.completed } : movie
     );
-    setMovieList(updatedList); // Update the state with the new list
+    updateMovieList(updatedList); // Update the state in parent
     localStorage.setItem('movies', JSON.stringify(updatedList)); // Save to local storage
     console.log('Toggled completion for movie at index:', index, 'Updated movie list:', updatedList); // Log the updated list after toggle
   };
@@ -105,6 +125,10 @@ const Streamlist = () => {
   return (
     <div>
       <h2>Streamlist</h2>
+      <div onClick={handleDownloadClick} style={{ cursor: 'pointer' }}>
+        <img src={iconPath} alt="Download Icon"/> {/* Download icon */}
+      </div>
+      <p>Click the icon to download EZTechMovie Application.</p>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} {/* Display error message */}
       <form onSubmit={handleSubmit}>
         <input
@@ -126,12 +150,13 @@ const Streamlist = () => {
       <ul>
         {movieList.map((movie, index) => (
           <li key={index} style={{ textDecoration: movie.completed ? 'line-through' : 'none' }}>
-            {movie.name} - ${movie.price}
+            {movie.name} - ${movie.price.toFixed(2)} {/* Ensure price is a valid number */}
             <button onClick={() => handleComplete(index)}>
               {movie.completed ? 'Undo' : 'Complete'}
             </button>
             <button onClick={() => handleEdit(index)}>Edit</button>
             <button onClick={() => handleDelete(index)}>Remove</button>
+            <button onClick={() => addItemToCart(movie)}>Add to Cart</button> {/* Add to Cart button */}
           </li>
         ))}
       </ul>

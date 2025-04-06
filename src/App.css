@@ -82,7 +82,7 @@ button {
 }
 
 button:hover {
-  background-color: #ff6347; /* Reddish color on hover */
+  background-color: #3552d3; /* Reddish color on hover */
 }
 
 h3 {
@@ -106,7 +106,7 @@ li {
 }
 
 li button {
-  background-color: #dc3545; /* Red background for remove buttons */
+  background-color: #3442c0; /* Red background for remove buttons */
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
@@ -115,7 +115,7 @@ li button {
 }
 
 li button:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #5869fc; /* Darker red on hover */
 }
 
 .edit-button {

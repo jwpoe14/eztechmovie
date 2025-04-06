@@ -1,0 +1,16 @@
+/* src/components/About.css */
+
+h1 {
+    color: #2f69a3;
+    font-size: 2.5em;
+  }
+  
+  h2 {
+    color: #245e97;
+    font-size: 1.8em;
+  }
+  
+  p {
+    color: #7f8c8d;
+    line-height: 1.6;
+  }

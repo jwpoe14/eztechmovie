@@ -1,8 +1,10 @@
+// src/components/Movies.js
+
 import React, { useEffect, useState } from 'react';
 import { fetchMovies } from '../services/tmdbService'; // Ensure the path is correct
 import { Link } from 'react-router-dom';
 
-const Movies = () => {
+const Movies = ({ addItemToCart }) => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(''); // State to hold error messages
@@ -60,6 +62,9 @@ const Movies = () => {
                 />
               )}
             </Link>
+            <button onClick={() => addItemToCart({ name: movie.title, price: 19.99 })}>
+              Add to Cart
+            </button> {/* Add button to add movie to cart */}
           </li>
         ))}
       </ul>
